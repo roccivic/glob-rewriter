@@ -1,0 +1,21 @@
+{
+  "name": "glob-rewriter",
+  "description": "Rewrites paths, using two globs as patterns",
+  "main": "dist/glob-rewriter.js",
+  "authors": [
+    "Rouslan Placella <rouslan@placella.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "glob",
+    "path"
+  ],
+  "homepage": "https://github.com/roccivic/glob-rewriter",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
