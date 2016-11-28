@@ -9,6 +9,7 @@
     "preversion": "npm run dist && git add dist/glob-rewriter.js && git commit -m 'Updated dist file'"
   },
   "license": "MIT",
+  "repository": "roccivic/glob-rewriter",
   "devDependencies": {
     "browserify": "^13.1.1",
     "tape": "^4.6.3",
