@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/roccivic/glob-rewriter.svg)](https://travis-ci.org/roccivic/glob-rewriter)
+[![npm](https://img.shields.io/npm/v/glob-rewriter.svg)](https://www.npmjs.com/package/glob-rewriter)
+![Bower](https://img.shields.io/bower/v/glob-rewriter.svg)
 
 # Glob rewriter
 
