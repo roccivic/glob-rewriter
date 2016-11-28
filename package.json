@@ -1,13 +1,16 @@
 {
   "name": "glob-rewriter",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Rewrites paths, using two globs as patterns",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/tape test/tests.js"
+    "test": "node_modules/.bin/tape test/tests.js",
+    "dist": "node_modules/.bin/browserify -s GlobRewriter index.js > dist/glob-rewriter.js",
+    "preversion": "npm run dist && git add dist/glob-rewriter.js && git commit -m 'Updated dist file'"
   },
   "license": "MIT",
   "devDependencies": {
+    "browserify": "^13.1.1",
     "tape": "^4.6.3",
     "zuul": "^3.11.1"
   },
