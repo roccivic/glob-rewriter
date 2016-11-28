@@ -1,6 +1,6 @@
 {
   "name": "glob-rewriter",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Rewrites paths, using two globs as patterns",
   "main": "index.js",
   "scripts": {
