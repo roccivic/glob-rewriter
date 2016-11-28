@@ -1,6 +1,6 @@
 'use strict';
 
-var tap = require('tap');
+var tape = require('tape');
 var rewriter = require('../..');
 
 module.exports = {
@@ -21,24 +21,30 @@ module.exports = {
           test.source,
           test.target
         );
-        tap.equal(result, path.expected, suite);
+        tape(suite, function(t) {
+          t.plan(1);
+          t.equal(result, path.expected, suite);
+        });
       }
     }
   },
   runNegativeTests: function(tests, suite) {
     for (var i = 0; i < tests.length; i++) {
       var test = tests[i];
-      try {
-        rewriter.rewrite(
-          test.path,
-          test.locale,
-          test.source,
-          test.target
-        );
-        tap.fail(suite + ': Exception not thrown');
-      } catch (e) {
-        tap.equal(e.message, test.error);
-      }
+      tape(suite, function(t) {
+        t.plan(1);
+        try {
+          rewriter.rewrite(
+            test.path,
+            test.locale,
+            test.source,
+            test.target
+          );
+          t.fail(suite + ': Exception not thrown');
+        } catch (e) {
+          t.equal(e.message, test.error);
+        }
+      });
     }
   }
 };

@@ -4,11 +4,11 @@
   "description": "Rewrites paths, using two globs as patterns",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/tap -Rtap --cov test/tests.js"
+    "test": "node_modules/.bin/tape test/tests.js"
   },
   "license": "MIT",
   "devDependencies": {
-    "tap": "^8.0.1"
+    "tape": "^4.6.3"
   },
   "dependencies": {
     "glob-to-regexp": "git://github.com/roccivic/glob-to-regexp.git#capture-groups"
