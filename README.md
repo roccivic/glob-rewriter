@@ -6,6 +6,8 @@ Rewrites paths, using two globs as patterns.
 
 Replaces a mandatory placeholder in the target expression with the provided value. The mandatory placeholder is ```<LOCALE>```.
 
+Depends on a patched version of glob-to-regexp module, until [https://github.com/fitzgen/glob-to-regexp/pull/11](https://github.com/fitzgen/glob-to-regexp/pull/11) is merged.
+
 ## Installation
 
 ```sh

@@ -11,6 +11,6 @@
     "tap": "^8.0.1"
   },
   "dependencies": {
-    "glob-to-regexp": "^0.3.0"
+    "glob-to-regexp": "git://github.com/roccivic/glob-to-regexp.git#capture-groups"
   }
 }
