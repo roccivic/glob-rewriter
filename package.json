@@ -8,7 +8,8 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "tape": "^4.6.3"
+    "tape": "^4.6.3",
+    "zuul": "^3.11.1"
   },
   "dependencies": {
     "glob-to-regexp": "git://github.com/roccivic/glob-to-regexp.git#capture-groups"

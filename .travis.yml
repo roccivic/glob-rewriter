@@ -1,6 +1,9 @@
 language: node_js
 node_js:
   - node
+script:
+  - npm test
+  - node node_modules/zuul/bin/zuul -- test/tests.js
 env:
   global:
     - secure: >-

@@ -1,0 +1,16 @@
+ui: tape
+browsers:
+  - name: internet explorer
+    version: 11
+
+  - name: microsoftedge
+    version: latest
+
+  - name: chrome
+    version: latest
+
+  - name: firefox
+    version: latest
+
+  - name: opera
+    version: latest
