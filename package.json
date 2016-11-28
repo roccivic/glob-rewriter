@@ -1,0 +1,16 @@
+{
+  "name": "glob-rewriter",
+  "version": "1.0.0",
+  "description": "Rewrites paths, using two globs as patterns",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/.bin/tap -Rtap --cov test/tests.js"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "tap": "^8.0.1"
+  },
+  "dependencies": {
+    "glob-to-regexp": "^0.3.0"
+  }
+}
