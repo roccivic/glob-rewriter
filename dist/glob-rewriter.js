@@ -6,9 +6,9 @@ var rewrite = require('./lib/rewrite');
 
 module.exports = {
   validate: validate,
-  rewrite: function() {
-    validate.apply(this, arguments);
-    return rewrite.apply(this, arguments);
+  rewrite: function(path, locale, source, target) {
+    validate(source, target);
+    return rewrite(path, locale, source, target);
   }
 };
 
@@ -31,7 +31,22 @@ module.exports = [
 var globToRegExp = require('glob-to-regexp');
 
 module.exports = function(path, locale, source, target) {
+  if (typeof path !== 'string') {
+    throw new Error('Path is not a string');
+  } else if (typeof locale !== 'string') {
+    throw new Error('Locale is not a string');
+  }
+  // Create source regexp
   var sourceRegexp = globToRegExp(source, {globstar: true});
+  // Validate path against source
+  var sourceRegexp = globToRegExp(source, {globstar: true});
+  if (!sourceRegexp.test(path)) {
+    throw new Error(
+        'Source expression "' + source +
+        '" does not match path "' + path + '"'
+    );
+  }
+  // Match path against source regexp
   var matches = sourceRegexp.exec(path);
   // Get rid of the first match, it's the whole string
   matches.shift();
@@ -109,51 +124,39 @@ function contains(haystack, needles) {
   for (var i = 0; i < needles.length; i++) {
     var needle = needles[i];
     if (haystack.indexOf(needle) !== -1) {
-      return true;
+      return needle;
     }
   }
 }
 
-module.exports = function(path, locale, source, target) {
+module.exports = function(source, target) {
   // Validate input
-  if (typeof path !== 'string') {
-    throw new Error('Path is not a string');
-  } else if (typeof locale !== 'string') {
-    throw new Error('Locale is not a string');
-  } else if (typeof source !== 'string') {
+  if (typeof source !== 'string') {
     throw new Error('Source expression is not a string');
   } else if (typeof target !== 'string') {
     throw new Error('Target expression is not a string');
   } else if (/\*{3,}/.test(source)) {
-    throw new Error('Source expression is malformed');
+    throw new Error('Source expression contains an invalid glob');
   } else if (/\*{3,}/.test(target)) {
-    throw new Error('Target expression is malformed');
-  } else if (contains(source, invalidChars)) {
-    throw new Error('Source expression contains one or more invalid characters');
-  } else if (contains(target.replace('<LOCALE>', ''), invalidChars)) {
-    throw new Error('Target expression contains one or more invalid characters');
-  } else if (source[0] === '/') {
-    throw new Error('Source expression is not relative');
-  } else if (target[0] === '/') {
-    throw new Error('Target expression is not relative');
-  } else if (!/<LOCALE>/.test(target)) {
-    throw new Error('Placeholder is missing from the target expression');
+    throw new Error('Target expression contains an invalid glob');
   }
-
+  var cs = contains(source, invalidChars);
+  var ct = contains(target.replace('<LOCALE>', ''), invalidChars);
+  if (cs) {
+    throw new Error('Source expression contains an invalid character "' + cs + '"');
+  } else if (ct) {
+    throw new Error('Target expression contains an invalid character "' + ct + '"');
+  } else if (source[0] === '/') {
+    throw new Error('Source expression is not a relative path');
+  } else if (target[0] === '/') {
+    throw new Error('Target expression is not a relative path');
+  } else if (!/<LOCALE>/.test(target)) {
+    throw new Error('Target expression  is missing the "<LOCALE>" placeholder');
+  }
   // Validate source against target
   if (!globsMatch(source, target)) {
     throw new Error(
-        'Globs in source expression "' + source +
-        '" do not match globs in target expression "' + target + '"'
-    );
-  }
-
-  // Validate path against source
-  var sourceRegexp = globToRegExp(source, {globstar: true});
-  if (!sourceRegexp.test(path)) {
-    throw new Error(
-        'Source expression "' + source +
-        '" does not match path "' + path + '"'
+        'Globs in source expression do not match globs in target expression'
     );
   }
 };
