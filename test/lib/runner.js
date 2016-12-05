@@ -13,38 +13,43 @@ module.exports = {
   runPositiveTests: function(tests, suite) {
     for (var i = 0; i < tests.length; i++) {
       var test = tests[i];
-      for (var i = 0; i < test.paths.length; i++) {
-        var path = test.paths[i];
-        var result = rewriter.rewrite(
-          path.input,
-          test.locale,
-          test.source,
-          test.target
-        );
-        tape(suite, function(t) {
-          t.plan(1);
-          t.equal(result, path.expected, suite);
-        });
+      for (var j = 0; j < test.paths.length; j++) {
+        var path = test.paths[j];
+        (function(path, result) {
+          tape(suite, function(t) {
+            t.plan(1);
+            t.equal(result, path.expected, suite);
+          });
+        }(
+          path,
+          rewriter.rewrite(
+            path.input,
+            test.locale,
+            test.source,
+            test.target
+          )
+        ));
       }
     }
   },
   runNegativeTests: function(tests, suite) {
     for (var i = 0; i < tests.length; i++) {
-      var test = tests[i];
-      tape(suite, function(t) {
-        t.plan(1);
-        try {
-          rewriter.rewrite(
-            test.path,
-            test.locale,
-            test.source,
-            test.target
-          );
-          t.fail(suite + ': Exception not thrown');
-        } catch (e) {
-          t.equal(e.message, test.error);
-        }
-      });
+      (function(test) {
+        tape(suite, function(t) {
+          t.plan(1);
+          try {
+            rewriter.rewrite(
+              test.path,
+              test.locale,
+              test.source,
+              test.target
+            );
+            t.fail(suite + ': Exception not thrown');
+          } catch (e) {
+            t.equal(e.message, test.error);
+          }
+        });
+      }(tests[i]));
     }
   }
 };
