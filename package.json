@@ -16,6 +16,6 @@
     "zuul": "^3.11.1"
   },
   "dependencies": {
-    "glob-to-regexp": "git://github.com/roccivic/glob-to-regexp.git#capture-groups"
+    "glob-to-regexp": "git://github.com/fitzgen/glob-to-regexp.git#78bb4bd9beffbc9abfdc6e073018e7c5ef7a9e7d"
   }
 }
