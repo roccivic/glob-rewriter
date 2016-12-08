@@ -151,7 +151,7 @@ module.exports = function(source, target) {
   } else if (target[0] === '/') {
     throw new Error('Target expression is not a relative path');
   } else if (!/<LOCALE>/.test(target)) {
-    throw new Error('Target expression  is missing the "<LOCALE>" placeholder');
+    throw new Error('Target expression is missing the "<LOCALE>" placeholder');
   }
   // Validate source against target
   if (!globsMatch(source, target)) {
